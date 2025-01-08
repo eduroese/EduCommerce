@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+<body>
+    <header class="header">
+        <a href="#"><img class="logo" src="/assets/images/e-shocklogo.png" alt="Logo"></a>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="store">Store</a></li>
+                @if(!isUserLoggedIn()){
+                    <li><a href="sign-in">Sign in</a></li>
+                    <li><a id="notsignin" href="sign-up">Sign up</a></li>
+                }@else{
+                    <li class="checkout-icon">
+                        <a href="checkout">
+                            <img src="/assets/images/carrinho.png" alt="Carrinho" class="cart-image">
+                            @if(getTotal() > 0){
+                            <span class="cart-count">{{ getCartCount() }}</span>
+                            }
+                        </a>
+                    </li>
+                    <li class="profile-icon">
+                        <a href="javascript:void(0);" (click)="toggleDropdown()">
+                            <img src="{{ getUserImg() }}" alt="User Profile" class="profile-image">
+                        </a>
+                    </li>
+                    @if(dropdownVisible){
+                    <ul class="dropdown-menu">
+                        <li><button class="logout-button" (click)="logout()">Logout</button></li>
+                    </ul>
+                }
+                }
+            </ul>
+        </nav>
+    </header>
+
+    <section class="checkout">
+        <h2>Your Order</h2>
+        <div class="cart-items">
+            @if(cartItems.length > 0){
+                <ul>
+                    @for (item of cartItems; track item){
+                        <li class="cart-item">
+                            <img src="{{item.imagem}}" alt="{{item.name}}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h3>{{ item.name }}</h3>
+                                <p>{{ item.preco | currency: 'BRL':'symbol':'1.2-2' }}</p>
+                            </div>
+                            <button class="remove-item" (click)="removeFromCart(item)">Remove</button>
+                        </li>
+                    }
+                </ul>
+            }@else{
+                <p class="empty-cart">Your cart is empty.</p>
+            }
+        </div>
+
+        <div class="cart-total">
+            <h3>Total: {{ totalPrice | currency: 'BRL':'symbol':'1.2-2' }}</h3>
+            <button class="checkout-btn" (click)="finalizePurchase(1)">Checkout</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 e - Shock. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

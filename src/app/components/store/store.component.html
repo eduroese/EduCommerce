@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <header class="header">
+        <a href="#"><img class="logo" src="/assets/images/e-shocklogo.png"></a>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="store">Store</a></li>
+                @if(!isUserLoggedIn()){
+                    <li><a href="sign-in">Sign in</a></li>
+                    <li><a id="notsignin" href="sign-up">Sign up</a></li>
+            }@else{
+                <li class="checkout-icon">
+                    <a href="checkout">
+                        <img src="/assets/images/carrinho.png" alt="Carrinho" class="cart-image">
+                        @if(getCartCount() > 0){
+                        <span class="cart-count">{{ getCartCount() }}</span>
+                        }
+                    </a>
+                </li>
+                <li class="profile-icon">
+                    <a href="javascript:void(0);" (click)="toggleDropdown()">
+                        <img src="{{ getUserImg() }}" alt="User Profile" class="profile-image">
+                    </a>
+                </li>
+                @if(dropdownVisible){
+                <ul class="dropdown-menu">
+                    <li><button class="logout-button" (click)="logout()">Logout</button></li>
+                </ul>
+            }
+            }
+            </ul>
+        </nav>
+    </header>
+
+    <section class="products">
+        <h2>Lista de Produtos</h2>
+        <button class="add-product-btn" (click)="openAddProductPopup()">Adicionar Produto</button>
+        <div class="product-list">
+            @for (item of products; track item){
+            <ul class="product-item">
+               
+                <img src="{{item.imagem}}" alt="{{item.name}}">
+                    <h3>{{item.name}}</h3>
+                    <p>{{ item.preco | currency: 'BRL':'symbol':'1.2-2' }}</p>
+                
+                <div class="buttons">
+                    <button class="cta" (click)="addToCart(item)">Comprar</button>
+                    <button class="cta" (click)="setEditProduct(form, item);">Editar</button>
+                </div>
+
+            </ul>
+        }
+        </div>
+    </section>
+    
+    <div id="addProductPopup" class="popup" [class.hidden]="isPopupHidden">
+        <div class="popup-content">
+            <h2>{{isEditing ? 'Editar Produto' : 'Adicionar Produto'}}</h2>
+            <form #form="ngForm" (ngSubmit)="verifier(form)">
+                <label for="name">Nome do Produto:</label>
+                <input type="text" id="name" name="name" [(ngModel)]="name" required>
+              
+                <label for="imagem">URL da Imagem:</label>
+                <input type="text" id="imagem" name="imagem" [(ngModel)]="imagem">
+              
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" name="preco" [(ngModel)]="preco" step="0.01" required>
+              
+                <div class="popup-actions">
+                  <button type="submit" class="cta">{{isEditing ? 'Editar' : 'Adicionar'}}</button>
+                  <button type="button" class="cta secondary" (click)="closeAddProductPopup()">Cancelar</button>
+                </div>
+              </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 e - Shock. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

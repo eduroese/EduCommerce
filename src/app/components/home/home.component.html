@@ -1,0 +1,57 @@
+<!-- HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <header class="header">
+        <a href="#"><img class="logo" src="/assets/images/e-shocklogo.png"></a>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="store">Store</a></li>
+                @if(!isUserLoggedIn()){
+                    <li><a href="sign-in">Sign in</a></li>
+                    <li><a id="notsignin" href="sign-up">Sign up</a></li>
+            }@else{
+                <li class="profile-icon">
+                    <a href="javascript:void(0);" (click)="toggleDropdown()">
+                        <img src="{{ getUserImg() }}" alt="User Profile" class="profile-image">
+                    </a>
+                </li>
+                @if(dropdownVisible){
+                <ul class="dropdown-menu">
+                    <li><button class="logout-button" (click)="logout()">Logout</button></li>
+                </ul>
+            }
+            }
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to e-shock</h1>
+            <p>Your one-stop shop for the latest trends.</p>
+            <a href="store" class="cta">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="products">
+        <h2>Lista de Produtos</h2>
+        <div class="product-list">
+            @for (item of products; track item){
+            <ul class="product-item">
+               
+                <img src="{{item.imagem}}" alt="{{item.name}}">
+                    <h3>{{item.name}}</h3>
+                    <p>{{ item.preco | currency: 'BRL':'symbol':'1.2-2' }}</p>
+
+            </ul>
+        }
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 e - Shock. All rights reserved.</p>
+    </footer>
+</body>
+</html>

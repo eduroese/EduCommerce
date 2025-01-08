@@ -1,0 +1,81 @@
+/* Login Section */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a; /* Preto suave */
+    padding: 6rem 2rem;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+}
+
+.login-content {
+    max-width: 500px;
+    background-color: #2a2a2a; /* Preto suave */
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.login-content h1 {
+    font-size: 2.5rem;
+    color: #ff0000; /* Vermelho */
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #333333;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    border-color: #ff0000; /* Foco em vermelho */
+}
+
+button.cta {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #ff0000; /* Vermelho */
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+button.cta:hover {
+    background-color: #910101; /* Tom mais escuro de Vermelho */
+}
+
+p {
+    margin-top: 1.5rem;
+    color: #ffffff;
+}
+
+#signup-link {
+    color: #ff0000;
+    text-decoration: none;
+}
+
+#signup-link:hover {
+    color: #910101; /* Tom mais escuro de Vermelho */
+}
